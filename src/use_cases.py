@@ -1,0 +1,6 @@
+def register_tenant():
+    ...
+
+
+def calculate_gas():
+    ...
