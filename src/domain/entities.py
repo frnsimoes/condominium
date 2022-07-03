@@ -1,7 +1,8 @@
 from dataclasses import dataclass
 from typing import ClassVar, Union
 
-from src.constants import Apartment, Comercial, Type, get_unity_possible_values
+from src.domain._types import Apartment, Comercial, UnityType, get_unity_possible_values
+from src.domain import apartment_string_id, comercial_string_id
 
 Reference = Union[Apartment, Comercial]
 
@@ -21,7 +22,7 @@ class PayableExpenses:
 class Unity:
     _registered: ClassVar[set] = set()
 
-    type: Type
+    type: UnityType
     expenses: PayableExpenses
     reference: Reference
 
@@ -32,4 +33,16 @@ class Unity:
         if self.reference in self._registered:
             raise Exception("reference already registered")
 
+        if self.type not in UnityType.values():
+            raise Exception("Type must be Apartment or Comercial")
+
         self._registered.add(self.reference)
+
+    def count_registered_unities(self):
+        return len(self._registered)
+
+    def count_registered_apartment_unities(self):
+        return len([e.startswith(apartment_string_id) for e in self._registered])
+
+    def count_registered_comercial_unities(self):
+        return len([e.startswith(comercial_string_id) for e in self._registered])

@@ -1,6 +1,6 @@
 from typing import Protocol
 
-from src.entities import Unity
+from src.domain.entities import Unity
 
 
 class UnityRepository(Protocol):
