@@ -13,6 +13,7 @@ I want to know DDD, clean arch, and Python OOP better.
 ### Domain
 
 The domain has two parts:
+
 *Building*:
 The building is a representation of an apartment complex that has both apartments and comercial rooms. In the building domain, the user can register a new Unity, be it a Comercial unity or an Apartment unity.
 
