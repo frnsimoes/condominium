@@ -1,7 +1,5 @@
 # Condominium API
-This is a new version of a project I did in 2020.
-
-The main goal of this V2 is that I want to take advantage of a domain I created to study DDD, clean architecture, python OOP and new python features.
+This is a new version of a project I did in 2020 to manage an apartment complex.
 
 ## Domain
 
