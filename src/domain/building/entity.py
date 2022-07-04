@@ -31,7 +31,7 @@ class ComercialUnity(BaseUnity):
     _TYPE: ClassVar[ComercialUnities] = ComercialUnities
 
 
-@dataclass
+@dataclass(frozen=True)
 class PayableExpenses:
     water: bool = True
     energy: bool = False
