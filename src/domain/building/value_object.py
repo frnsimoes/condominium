@@ -1,17 +1,22 @@
 from enum import Enum, auto, unique
+from typing import Any, List
 
 
 class BaseEnum(Enum):
-    def _generate_next_value_(name: str, start, count, last_values):
+    @staticmethod
+    def _generate_next_value_(name: str, start: int, count: int, last_values: List[Any]) -> Any:
+
         return name
 
     @classmethod
-    def values(cls):
+    def values(cls) -> List[str]:
         return [e.value for e in cls]
 
 
 class BaseUnities(BaseEnum):
-    def _generate_next_value_(name: str, start, count, last_values):
+    @staticmethod
+    def _generate_next_value_(name: str, start: int, count: int, last_values: List[Any]) -> Any:
+
         name = name.replace("_", ".")
         if name.startswith("CO_"):
             name = name.replace("CO", "S")
