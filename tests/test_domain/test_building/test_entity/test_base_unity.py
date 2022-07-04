@@ -1,13 +1,13 @@
 import pytest
 
-from src.domain.building.entity import (
+from src.building.domain.entity import (
     ApartmentUnities,
     ApartmentUnity,
     BaseUnity,
     ComercialUnities,
     ComercialUnity,
 )
-from src.domain.building.exceptions import InvalidUnityName
+from src.building.domain.exceptions import InvalidUnityName
 
 
 def test_apartment_unity_can_be_created():

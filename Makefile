@@ -23,12 +23,10 @@ test: install
 	$(MYPY) $(ALLOWED)
 	$(PYTEST) -vv
 
-format:
+lint:
 	$(ISORT) $(ALLOWED)
 	$(BLACK) $(ALLOWED)
-
-lint:
 	$(FLAKE8) $(ALLOWED)
 	$(PYLINT) $(ALLOWED)
 
-read_for_commit: format lint test
+ready_for_commit: lint test

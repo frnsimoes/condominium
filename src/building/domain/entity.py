@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 from typing import ClassVar, Union
 
-from src.domain.building.exceptions import InvalidUnityName, UnityNameAlreadyRegistered
-from src.domain.building.value_object import ApartmentUnities, ComercialUnities
+from src.building.domain.exceptions import InvalidUnityName, UnityNameAlreadyRegistered
+from src.building.domain.value_object import ApartmentUnities, ComercialUnities
 
 
 class BaseUnity:

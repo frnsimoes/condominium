@@ -1,8 +1,8 @@
 import pytest
 
-from src.domain.building import entity
-from src.domain.building.exceptions import UnityNameAlreadyRegistered
-from src.domain.building.value_object import ApartmentUnities
+from src.building.domain import entity
+from src.building.domain.exceptions import UnityNameAlreadyRegistered
+from src.building.domain.value_object import ApartmentUnities
 
 
 @pytest.fixture(autouse=True)
