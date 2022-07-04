@@ -30,3 +30,5 @@ format:
 lint:
 	$(FLAKE8) $(ALLOWED)
 	$(PYLINT) $(ALLOWED)
+
+read_for_commit: format lint test
