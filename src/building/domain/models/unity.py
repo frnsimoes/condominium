@@ -1,7 +1,13 @@
 from dataclasses import dataclass
-from typing import ClassVar, Union
+from typing import ClassVar, Set, Union
 
-from src.building.domain.exceptions import InvalidUnityName, UnityNameAlreadyRegistered
+from typing_extensions import Self
+
+from src.building.domain.exceptions import (
+    InvalidUnityName,
+    UnityAlreadyRegistered,
+    UnityNameAlreadyRegistered,
+)
 from src.building.domain.value_object import ApartmentUnities, ComercialUnities
 
 
@@ -44,19 +50,27 @@ class PayableExpenses:
     generic_utilitaries: bool = True
 
 
-@dataclass
+@dataclass(unsafe_hash=True)
 class Unity:
-    registered: ClassVar[set] = set()
+    registered_refs: ClassVar[Set[str]] = set()
+    registered_unities: ClassVar[list] = list()
 
     expenses: PayableExpenses
     reference: Union[ApartmentUnity, ComercialUnity]
 
     def __post_init__(self):
-        if self.reference.name in self.registered:
+        if self.reference.name in self.registered_refs:
             raise UnityNameAlreadyRegistered(f"{self.reference.name} is already registered")
+        self.registered_refs.add(self.reference.name)
 
-        self.registered.add(self.reference.name)
+        if self in self.registered_unities:
+            raise UnityAlreadyRegistered(f"{self} is already registered")
+        self.registered_unities.append(self)
 
     @property
     def name(self):
         return self.reference.name
+
+    @classmethod
+    def get_payers_per_expense(cls, expense_name: str):
+        return [unity for unity in cls.registered_unities if getattr(unity.expenses, expense_name)]

@@ -1,5 +1,6 @@
 import pytest
 
+from src.building.domain.exceptions import InvalidUnityName
 from src.building.domain.models.unity import (
     ApartmentUnities,
     ApartmentUnity,
@@ -7,7 +8,6 @@ from src.building.domain.models.unity import (
     ComercialUnities,
     ComercialUnity,
 )
-from src.building.domain.exceptions import InvalidUnityName
 
 
 def test_apartment_unity_can_be_created():

@@ -17,6 +17,10 @@ class Expenses:
 
 
 @dataclass
-class SpreadSheet:
+class Spreadsheet:
     expenses: Expenses
-    registered_unities: set = Unity.registered
+    registered_unities: list = Unity.registered_unities
+
+    @property
+    def water_sum_per_payer(self):
+        return self.expenses.water / len(Unity.water_payers())

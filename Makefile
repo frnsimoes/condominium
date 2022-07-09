@@ -6,10 +6,10 @@ ALLOWED = ./$(PACKAGE) ./tests
 POETRY=poetry
 PYTEST=$(POETRY) run pytest
 MYPY=$(POETRY) run mypy --ignore-missing-imports
-BLACK=$(POETRY) run black  --line-length=100
+BLACK=$(POETRY) run black  --line-length=110
 ISORT=$(POETRY) run isort
 
-FLAKE8=$(POETRY) run flake8 --max-line-length=100
+FLAKE8=$(POETRY) run flake8 --max-line-length=110
 PYLINT=$(POETRY) run pylint  --errors-only
 
 

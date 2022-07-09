@@ -4,3 +4,7 @@ class InvalidUnityName(Exception):
 
 class UnityNameAlreadyRegistered(Exception):
     pass
+
+
+class UnityAlreadyRegistered(Exception):
+    pass
