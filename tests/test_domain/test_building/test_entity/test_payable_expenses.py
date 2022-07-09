@@ -2,7 +2,7 @@ from dataclasses import FrozenInstanceError
 
 import pytest
 
-from src.building.domain.entity import PayableExpenses
+from src.building.domain.models.unity import PayableExpenses
 
 
 def test_payable_expenses_cannot_be_modified_after_creation():

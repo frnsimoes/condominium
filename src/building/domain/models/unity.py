@@ -24,10 +24,12 @@ class BaseUnity:
 
 
 class ApartmentUnity(BaseUnity):
+    GAS = True
     _TYPE: ClassVar[ApartmentUnities] = ApartmentUnities
 
 
 class ComercialUnity(BaseUnity):
+    GAS = False
     _TYPE: ClassVar[ComercialUnities] = ComercialUnities
 
 
@@ -44,16 +46,16 @@ class PayableExpenses:
 
 @dataclass
 class Unity:
-    _registered: ClassVar[set] = set()
+    registered: ClassVar[set] = set()
 
     expenses: PayableExpenses
     reference: Union[ApartmentUnity, ComercialUnity]
 
     def __post_init__(self):
-        if self.reference.name in self._registered:
+        if self.reference.name in self.registered:
             raise UnityNameAlreadyRegistered(f"{self.reference.name} is already registered")
 
-        self._registered.add(self.reference.name)
+        self.registered.add(self.reference.name)
 
     @property
     def name(self):

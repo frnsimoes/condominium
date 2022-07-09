@@ -1,6 +1,6 @@
 import pytest
 
-from src.building.domain.entity import (
+from src.building.domain.models.unity import (
     ApartmentUnities,
     ApartmentUnity,
     BaseUnity,
