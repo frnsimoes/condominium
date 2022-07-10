@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from decimal import Decimal
 from typing import Optional
 
@@ -12,15 +12,21 @@ class Expenses:
     fire_energy: Decimal
     internet: Decimal
     cleaner: Decimal
-    apartments_utilitaries: Optional[Decimal]
-    generic_utilitaries: Optional[Decimal]
+    apartments_utilitaries: Optional[Decimal] = Decimal("0")
+    generic_utilitaries: Optional[Decimal] = Decimal("0")
+
+
+class SpreadsheetType:
+    REGULAR = 'regular'
+    PROPORTIONAL = 'proportional'
 
 
 @dataclass
 class Spreadsheet:
     expenses: Expenses
-    registered_unities: list = Unity.registered_unities
+    # registered_unities: list = field(default_factory=Unity.registered_unities)
 
-    @property
-    def water_sum_per_payer(self):
-        return self.expenses.water / len(Unity.water_payers())
+    def calculate_expense_per_unity(self, expense_name: str):
+        payers: list = Unity.get_payers_per_expense(expense_name)
+        expense: Decimal = getattr(self.expenses, expense_name)
+        return expense / len(payers)

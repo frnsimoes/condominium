@@ -1,8 +1,6 @@
 from dataclasses import dataclass
 from typing import ClassVar, Set, Union
 
-from typing_extensions import Self
-
 from src.building.domain.exceptions import (
     InvalidUnityName,
     UnityAlreadyRegistered,
@@ -63,8 +61,6 @@ class Unity:
             raise UnityNameAlreadyRegistered(f"{self.reference.name} is already registered")
         self.registered_refs.add(self.reference.name)
 
-        if self in self.registered_unities:
-            raise UnityAlreadyRegistered(f"{self} is already registered")
         self.registered_unities.append(self)
 
     @property
