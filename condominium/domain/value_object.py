@@ -31,7 +31,7 @@ class UnityTypes(BaseEnum):
 
 
 @unique
-class ApartmentUnities(BaseUnities):
+class Apartment(BaseUnities):
     AP_01 = auto()
     AP_02 = auto()
     AP_03 = auto()
@@ -47,7 +47,7 @@ class ApartmentUnities(BaseUnities):
 
 
 @unique
-class ComercialUnities(BaseUnities):
+class Comercial(BaseUnities):
     CO_01 = auto()
     CO_02 = auto()
     CO_03 = auto()

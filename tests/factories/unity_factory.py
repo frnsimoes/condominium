@@ -1,44 +1,49 @@
 import factory
 
-from src.building.domain.models.unity import ApartmentUnity, ComercialUnity, PayableExpenses, Unity
-from src.building.domain.value_object import ApartmentUnities, ComercialUnities
+from condominium.domain.models.unity import (
+    ApartmentUnity,
+    ComercialUnity,
+    PayableExpenses,
+    BaseUnity,
+)
+from condominium.domain.value_object import Apartment, Comercial
 
 
 class AP01Factory(factory.Factory):
     class Meta:
-        model = Unity
+        model = BaseUnity
 
     expenses = PayableExpenses()
-    reference = ApartmentUnity(name=ApartmentUnities.AP_01.value)
+    reference = ApartmentUnity(name=Apartment.AP_01.value)
 
 
 class AP02Factory(factory.Factory):
     class Meta:
-        model = Unity
+        model = BaseUnity
 
     expenses = PayableExpenses()
-    reference = ApartmentUnity(name=ApartmentUnities.AP_02.value)
+    reference = ApartmentUnity(name=Apartment.AP_02.value)
 
 
 class AP03Factory(factory.Factory):
     class Meta:
-        model = Unity
+        model = BaseUnity
 
     expenses = PayableExpenses()
-    reference = ApartmentUnity(name=ApartmentUnities.AP_03.value)
+    reference = ApartmentUnity(name=Apartment.AP_03.value)
 
 
 class S01Factory(factory.Factory):
     class Meta:
-        model = Unity
+        model = BaseUnity
 
     expenses = PayableExpenses()
-    reference = ComercialUnity(name=ComercialUnities.CO_01.value)
+    reference = ComercialUnity(name=Comercial.CO_01.value)
 
 
 class S02Factory(factory.Factory):
     class Meta:
-        model = Unity
+        model = BaseUnity
 
     expenses = PayableExpenses()
-    reference = ComercialUnity(name=ComercialUnities.CO_02.value)
+    reference = ComercialUnity(name=Comercial.CO_02.value)

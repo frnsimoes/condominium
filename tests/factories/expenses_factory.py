@@ -2,7 +2,7 @@ from decimal import Decimal
 
 import factory
 
-from src.building.domain.models.spreadsheet import Expenses
+from condominium.domain.models.spreadsheet import Expenses
 
 
 class ExpensesFactory(factory.Factory):

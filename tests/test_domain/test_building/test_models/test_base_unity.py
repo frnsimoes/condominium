@@ -1,24 +1,24 @@
 import pytest
 
-from src.building.domain.exceptions import InvalidUnityName
-from src.building.domain.models.unity import (
-    ApartmentUnities,
+from condominium.domain.exceptions import InvalidUnityName
+from condominium.domain.models.unity import (
+    Apartment,
     ApartmentUnity,
     BaseUnity,
-    ComercialUnities,
+    Comercial,
     ComercialUnity,
 )
 
 
 def test_apartment_unity_can_be_created():
-    name = ApartmentUnities.AP_01.value
+    name = Apartment.AP_01.value
     unity = ApartmentUnity(name=name)
 
     assert unity is not None
 
 
 def test_comercial_unity_can_be_created():
-    name = ComercialUnities.CO_01.value
+    name = Comercial.CO_01.value
     unity = ComercialUnity(name=name)
 
     assert unity is not None
@@ -46,7 +46,7 @@ def test_subclass_with_no_type_raises_assertion_error():
     class FakeSubclass(BaseUnity):
         pass
 
-    name = ApartmentUnities.AP_01.value
+    name = Apartment.AP_01.value
     with pytest.raises(AssertionError) as e:
         FakeSubclass(name=name)
 

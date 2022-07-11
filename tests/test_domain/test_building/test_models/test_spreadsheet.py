@@ -2,8 +2,8 @@ from decimal import Decimal
 
 import pytest
 
-from src.building.domain.models.spreadsheet import Spreadsheet
-from src.building.domain.models.unity import PayableExpenses, Unity
+from condominium.domain.models.spreadsheet import Spreadsheet
+from condominium.domain.models.unity import PayableExpenses, BaseUnity
 from tests.factories.expenses_factory import ExpensesFactory
 from tests.factories.unity_factory import AP01Factory, AP02Factory, S01Factory
 
@@ -15,12 +15,12 @@ def setup():
     AP01Factory(expenses=no_water_expenses)
     AP02Factory(expenses=water_expenses)
     S01Factory(expenses=water_expenses)
-    Unity.registered_refs.clear()
+    BaseUnity.registered_refs.clear()
 
 
 def test_calculate_bill_per_expense():
-    assert len(Unity.registered_unities) == 3
-    assert len(Unity.get_payers_per_expense("water")) == 2
+    assert len(BaseUnity.registered_unities) == 3
+    assert len(BaseUnity.get_payers_per_expense("water")) == 2
     expenses = ExpensesFactory()
     spreadsheet = Spreadsheet(expenses=expenses)
 
