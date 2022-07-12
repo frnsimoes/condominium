@@ -1,4 +1,4 @@
-PACKAGE=src
+PACKAGE=condominium
 PACKAGE_PATH=./$(PACKAGE)
 TESTS=tests
 ALLOWED = ./$(PACKAGE) ./tests
