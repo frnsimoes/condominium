@@ -25,6 +25,8 @@ class Unity:
         if self.reference.name in Unity.get_unity_names():
             raise UnityAlreadyRegistered(f"{self.reference} is already registered")
 
+        self.registered.append(self)
+
     @classmethod
     def get_payers_per_expense(cls, expense_name: str):
         return [r for r in cls.registered if getattr(r.payable_expenses, expense_name)]
@@ -41,7 +43,6 @@ class ApartmentUnity(Unity):
 
     def __post_init__(self):
         super().__init__(self.reference, self.payable_expenses)
-        super().registered.append(self)
 
     @property
     def has_gas(self):
@@ -50,7 +51,7 @@ class ApartmentUnity(Unity):
 
 @dataclass(unsafe_hash=True)
 class ComercialUnity(Unity):
-    reference: Literal
+    reference: str
     payable_expenses: PayableExpenses
 
     def __post_init__(self):
@@ -61,8 +62,6 @@ class ComercialUnity(Unity):
 
         if self.payable_expenses.apartments_utilitaries:
             raise Exception()
-
-        super().registered.append(self)
 
     @property
     def has_gas(self):
