@@ -1,11 +1,6 @@
 import factory
 
-from condominium.domain.models.unity import (
-    ApartmentUnity,
-    ComercialUnity,
-    PayableExpenses,
-    BaseUnity,
-)
+from condominium.domain.models.unity import ApartmentUnity, BaseUnity, ComercialUnity, PayableExpenses
 from condominium.domain.value_object import Apartment, Comercial
 
 
