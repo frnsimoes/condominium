@@ -30,9 +30,6 @@ def test_outlaw_registration_of_two_unities_with_came_reference():
     with pytest.raises(UnityAlreadyRegistered) as e:
         ComercialUnity(reference=Comercial.CO_01, payable_expenses=payable_expenses)
 
-    import ipdb
-
-    ipdb.set_trace()
     assert len(Unity.registered) == 2
     assert first_co, first_ap in Unity.registered
 
