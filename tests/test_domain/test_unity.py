@@ -1,6 +1,6 @@
 import pytest
 
-from condominium.domain import Apartment, ApartmentUnity, Comercial, ComercialUnity, PayableExpenses, Unity
+from condominium.domain import Apartment, Comercial, PayableExpenses, Unity
 from condominium.domain.exceptions import UnityAlreadyRegistered
 
 
@@ -11,24 +11,24 @@ def reset_registered():
 
 def test_unity_is_registered_when_created():
     payable_expenses = PayableExpenses()
-    ap_01 = ApartmentUnity(reference=Apartment.AP_01, payable_expenses=payable_expenses)
+    ap_01 = Unity(name=Apartment.AP_01.value, payable_expenses=payable_expenses)
     assert ap_01 in Unity.registered
 
-    co_01 = ComercialUnity(reference=Comercial.CO_01, payable_expenses=payable_expenses)
+    co_01 = Unity(name=Comercial.CO_01.value, payable_expenses=payable_expenses)
     assert co_01 in Unity.registered
 
     assert len(Unity.registered) == 2
 
 
-def test_outlaw_registration_of_two_unities_with_came_reference():
+def test_outlaw_registration_of_two_unities_with_came_name():
     payable_expenses = PayableExpenses()
-    first_ap = ApartmentUnity(reference=Apartment.AP_01, payable_expenses=payable_expenses)
+    first_ap = Unity(name=Apartment.AP_01.value, payable_expenses=payable_expenses)
     with pytest.raises(UnityAlreadyRegistered):
-        ApartmentUnity(reference=Apartment.AP_01, payable_expenses=payable_expenses)
+        Unity(name=Apartment.AP_01.value, payable_expenses=payable_expenses)
 
-    first_co = ComercialUnity(reference=Comercial.CO_01, payable_expenses=payable_expenses)
-    with pytest.raises(UnityAlreadyRegistered) as e:
-        ComercialUnity(reference=Comercial.CO_01, payable_expenses=payable_expenses)
+    first_co = Unity(name=Comercial.CO_01.value, payable_expenses=payable_expenses)
+    with pytest.raises(UnityAlreadyRegistered):
+        Unity(name=Comercial.CO_01.value, payable_expenses=payable_expenses)
 
     assert len(Unity.registered) == 2
     assert first_co, first_ap in Unity.registered
@@ -37,10 +37,10 @@ def test_outlaw_registration_of_two_unities_with_came_reference():
 def test_get_payers_per_expense():
     payable_expenses = PayableExpenses()
     no_water_payable_expenses = PayableExpenses(water=False)
-    first_ap = ApartmentUnity(reference=Apartment.AP_01, payable_expenses=payable_expenses)
-    first_co = ComercialUnity(reference=Comercial.CO_01, payable_expenses=payable_expenses)
-    second_ap = ApartmentUnity(reference=Apartment.AP_02, payable_expenses=payable_expenses)
-    second_co = ComercialUnity(reference=Comercial.CO_02, payable_expenses=no_water_payable_expenses)
+    first_ap = Unity(name=Apartment.AP_01.value, payable_expenses=payable_expenses)
+    first_co = Unity(name=Comercial.CO_01.value, payable_expenses=payable_expenses)
+    second_ap = Unity(name=Apartment.AP_02.value, payable_expenses=payable_expenses)
+    second_co = Unity(name=Comercial.CO_02.value, payable_expenses=no_water_payable_expenses)
 
     payers_per_water = Unity.get_payers_per_expense("water")
     assert first_ap in payers_per_water

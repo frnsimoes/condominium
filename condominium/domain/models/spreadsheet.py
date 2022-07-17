@@ -1,8 +1,8 @@
 from dataclasses import dataclass, field
 from decimal import Decimal
-from typing import Optional
+from typing import List, Optional
 
-
+from condominium.domain import Unity
 
 
 @dataclass(frozen=True)
@@ -16,31 +16,16 @@ class Expenses:
     generic_utilitaries: Optional[Decimal] = Decimal("0")
 
 
-class SpreadsheetType:
-    REGULAR = "regular"
-    PROPORTIONAL = "proportional"
+# class SpreadsheetType:
+#     REGULAR = "regular"
+#     PROPORTIONAL = "proportional"
 
 
-@dataclass
+@dataclass(frozen=True)
 class Spreadsheet:
     expenses: Expenses
-    # registered_unities: list = field(default_factory=Unity.registered_unities)
+    _registered_unities: List[Unity] = field(default=Unity.registered)
 
-    # def calculate_expense_per_unity(self, expense_name: str):
-    #     payers: list = Unity.get_payers_per_expense(expense_name)
-    #     expense: Decimal = getattr(self.expenses, expense_name)
-    #     return expense / len(payers)
-
-
-class SpreadsheetProportional:
-    def __init__(self, expenses, days, unities_ref):
-        self.expenses = expenses
-        self.days = days
-        self.unities_ref = unities_ref
-
-
-@dataclass
-class SpreadsheetProportional:
-    expenses: Expenses
-    proportional_days: int
-    proportional_unities: list
+    def get_expense_value_for_registered_unity(self, expense_name: str):
+        expense_payers = Unity.get_payers_per_expense(expense_name)
+        return getattr(self.expenses, expense_name) / len(expense_payers)

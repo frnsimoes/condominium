@@ -1,10 +1,10 @@
 from dataclasses import dataclass
-from typing import List, Literal
+from typing import ClassVar
 
 from condominium.domain.exceptions import UnityAlreadyRegistered
 
 
-@dataclass(frozen=True)
+@dataclass
 class PayableExpenses:
     water: bool = True
     energy: bool = False
@@ -15,54 +15,22 @@ class PayableExpenses:
     generic_utilitaries: bool = True
 
 
+@dataclass
 class Unity:
-    registered: list = list()
-
-    def __init__(self, reference, payable_expenses):
-        self.reference = reference
-        self.payable_expenses = payable_expenses
-
-        if self.reference.name in Unity.get_unity_names():
-            raise UnityAlreadyRegistered(f"{self.reference} is already registered")
-
-        self.registered.append(self)
+    registered: ClassVar[list] = list()
+    name: str
+    payable_expenses: PayableExpenses
 
     @classmethod
     def get_payers_per_expense(cls, expense_name: str):
         return [r for r in cls.registered if getattr(r.payable_expenses, expense_name)]
 
     @classmethod
-    def get_unity_names(cls):
-        return [unity.reference.name for unity in cls.registered]
-
-
-@dataclass(unsafe_hash=True)
-class ApartmentUnity(Unity):
-    reference: Literal
-    payable_expenses: PayableExpenses
+    def registered_unity_names(cls):
+        return [unity.name for unity in cls.registered]
 
     def __post_init__(self):
-        super().__init__(self.reference, self.payable_expenses)
+        if self.name in Unity.registered_unity_names():
+            raise UnityAlreadyRegistered(f"{self.name} is already registered")
 
-    @property
-    def has_gas(self):
-        return True
-
-
-@dataclass(unsafe_hash=True)
-class ComercialUnity(Unity):
-    reference: str
-    payable_expenses: PayableExpenses
-
-    def __post_init__(self):
-        super().__init__(self.reference, self.payable_expenses)
-
-        if self.payable_expenses.energy:
-            raise Exception()
-
-        if self.payable_expenses.apartments_utilitaries:
-            raise Exception()
-
-    @property
-    def has_gas(self):
-        return False
+        Unity.registered.append(self)

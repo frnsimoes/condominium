@@ -10,6 +10,7 @@ flake8 = "^4.0.1"
 isort = "^5.10.1"
 pytest-mock = "^3.8.1"
 pytest-factoryboy = "^2.5.0"
+SQLAlchemy = "^1.4.39"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
