@@ -12,7 +12,7 @@ unities = Table(
     "unities",
     metadata,
     Column("id", Integer, primary_key=True, autoincrement=True),
-    Column("reference", String(255)),  # check if choices with enum
+    Column("name", String(255)),  # check if choices with enum
     Column("id", Integer, primary_key=True, autoincrement=True),
     Column("water", Boolean, unique=False, default=True),
     Column("energy", Boolean, unique=False, default=False),
